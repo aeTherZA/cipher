@@ -69,7 +69,7 @@ public class Main {
 		shift = performDecrypt(results,dictionary);
 	  }
 	  
-	  
+	  System.out.println(shift);
 	  if(shift == -1){
 		  System.out.println("Unable to decode Cipher :(");
 		  return;
