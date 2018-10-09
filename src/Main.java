@@ -72,7 +72,15 @@ public class Main {
 		  System.out.println("Unable to decode Cipher :(");
 		  return;
 	  }
+	  else{
+	  
+	  System.out.println("Found Possible Shift : "  + shift);
+	  System.out.println("Encoded Message : " );
+	  outputShift(0);
+	  System.out.println();
+	  System.out.println("Decoded Message : " );
 	  outputShift(shift);
+	  }
 	  
 	  
 	  
@@ -121,6 +129,7 @@ public class Main {
 	
 		
 		boolean shiftWorks = true;
+		System.out.println("Trying shifts...");
 		int shift = 0;
 		while(shift < 62){
 		for(int i = 0; i < results.size();i++){
@@ -165,7 +174,6 @@ public class Main {
 			System.out.println("The character \"" + ncc.getInvalidChar() + "\" is not part of the alphabet");
 			ncc.printStackTrace();
 		}
-		System.out.println(shift + " " + string + " " + newS);
 		return newS;
 	}
 
