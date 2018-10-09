@@ -62,17 +62,19 @@ public class Main {
 	  ArrayList<String> dups = new ArrayList<String>();
 	  dups = populateDups(results);
 	  for(String i : dups){
-		  System.out.println(i);
+		  //System.out.println(i);
 	  }
 	  int shift = performDecrypt(dups,dictionary);
 	  if(shift == -1){
 		shift = performDecrypt(results,dictionary);
 	  }
 	  
+	  
 	  if(shift == -1){
 		  System.out.println("Unable to decode Cipher :(");
 		  return;
 	  }
+	  
 	  
 	  
 		  
@@ -116,7 +118,7 @@ public class Main {
 			shift++;
 		}
 		}
-		if(shift == 61 && !(shiftWorks)){
+		if(shift == 62){
 			return -1;
 		}
 		else{
@@ -131,7 +133,6 @@ public class Main {
 	}
 
 	private static String shiftWord(int shift, String string) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
