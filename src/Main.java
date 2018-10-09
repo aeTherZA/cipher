@@ -133,7 +133,18 @@ public class Main {
 	}
 
 	private static String shiftWord(int shift, String string) {
-		return null;
+		String newS = "";
+		try {
+			for (int x = 0; x < string.length(); ++x) {
+				newS += CypherChar.shiftChar(string.charAt(x), shift);
+			}
+		}
+		catch(NotACypherChar ncc)
+		{
+			System.out.println("The character \"" + ncc.getInvalidChar() + "\" is not part of the alphabet");
+			ncc.printStackTrace();
+		}
+		return newS;
 	}
 
 	private static void removePunctuations(ArrayList<String> results,ArrayList<String> punctuation) {
