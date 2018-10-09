@@ -59,42 +59,61 @@ public class Main {
 	  
 	  //
 	  //TODO Check duplicates first
-		
-	  
-	  performDecrypt(results,dictionary);
+	  ArrayList<String> dups = new ArrayList<String>();
+	  dups = populateDups(results);
+	  for(String i : dups){
+		  System.out.println(i);
+	  }
+	  int shift = performDecrypt(dups,dictionary);
+	  //performDecrypt(results,dictionary);
 		  
 	
 	  
 	}
 
-	private static void performDecrypt(ArrayList<String> results, ArrayList<String> dictionary) {
+	private static ArrayList<String> populateDups(ArrayList<String> results) {
+		ArrayList<String> returnArr = new ArrayList<String>();
+		for(String t : results){
+			if((results.indexOf(t) != results.lastIndexOf(t)) && (t.length() < 4 && t.length() > 0))
+		        if(!returnArr.contains(t))
+		          returnArr.add(t);
+		}
+		return returnArr;
+	}
+	
+	
+
+	private static int performDecrypt(ArrayList<String> results, ArrayList<String> dictionary) {
 		
 	
 		
 		boolean shiftWorks = true;
 		int shift = 0;
+		while(shift < 62){
 		for(int i = 0; i < results.size();i++){
 			if(results.get(i).length() < 4 && results.get(i).length() > 0){
 				String testShift = shiftWord(shift,results.get(i));
-				System.out.println(results.get(i));
 				//Compares shifted word to see if shift int makes sense
 				shiftWorks = matchesDictionary(testShift,dictionary);
 			}
 		}
 		if(shiftWorks){
 			//shift int makes sense
+			break;
 		}
 		else{
 			//Try new shift
+			shift++;
 		}
+		}
+		
+		return shift;
 		
 	}
 
 	private static boolean matchesDictionary(String testShift, ArrayList<String> dictionary) {
-		for(int i = 0; i < dictionary.size();i++){
-			
-		}
-		return false;
+
+		return dictionary.contains(testShift);
 	}
 
 	private static String shiftWord(int shift, String string) {
