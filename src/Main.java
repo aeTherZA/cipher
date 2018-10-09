@@ -5,13 +5,13 @@ import java.util.Arrays;
 public class Main {
 	
 	
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args) throws IOException, NotACypherChar{
 	
 	ArrayList<String> results = new ArrayList<String>();
 	ArrayList<String> dictionary = new ArrayList<String>();
 	ArrayList<String> punctuation = new ArrayList<String>();
 	
-	File sL = new File("cypherDictionary.txt");
+	File sL = new File("cypherDictionary2.txt");
 	BufferedReader br = new BufferedReader(new FileReader(sL));
 	String st;
 	  while ((st = br.readLine()) != null){ 
@@ -29,9 +29,7 @@ public class Main {
 	  File file = new File("CeasarText.txt");
 	  
 	  BufferedReader buffer = new BufferedReader(new FileReader(file));
-	  String newLine = System.getProperty("line.seperator");
 	  String out;
-	  boolean newL = true;
 	  String word = "";
 	  while((out = buffer.readLine()) != null){
 		  if(out.length() > 0){
@@ -48,7 +46,7 @@ public class Main {
 				  }
 				  results.add(word);
 				  word = "";
-				  newL = false;
+			
 			  
 			  }
 		  
@@ -69,17 +67,40 @@ public class Main {
 		shift = performDecrypt(results,dictionary);
 	  }
 	  
-	  System.out.println(shift);
+	  
 	  if(shift == -1){
 		  System.out.println("Unable to decode Cipher :(");
 		  return;
 	  }
+	  outputShift(shift);
 	  
 	  
 	  
 		  
 	
 	  
+	}
+
+	private static void outputShift(int shift) throws IOException, NotACypherChar {
+	
+		 File file = new File("CeasarText.txt");
+		  
+		 BufferedReader buffer = new BufferedReader(new FileReader(file));
+		 
+		 String out = "";
+		 String outputRes = "";
+		 while((out = buffer.readLine()) != null){
+			 for(int i = 0; i < out.length();i++){
+				 if(CypherChar.isCypherChar(out.charAt(i))){
+					 outputRes += CypherChar.shiftChar(out.charAt(i), shift);
+				 }
+				 else{
+					 outputRes += out.charAt(i);
+				 }
+			 }
+			 System.out.println(outputRes);
+			 outputRes = "";
+		 }
 	}
 
 	private static ArrayList<String> populateDups(ArrayList<String> results) {
@@ -144,6 +165,7 @@ public class Main {
 			System.out.println("The character \"" + ncc.getInvalidChar() + "\" is not part of the alphabet");
 			ncc.printStackTrace();
 		}
+		System.out.println(shift + " " + string + " " + newS);
 		return newS;
 	}
 
