@@ -65,7 +65,16 @@ public class Main {
 		  System.out.println(i);
 	  }
 	  int shift = performDecrypt(dups,dictionary);
-	  //performDecrypt(results,dictionary);
+	  if(shift == -1){
+		shift = performDecrypt(results,dictionary);
+	  }
+	  
+	  if(shift == -1){
+		  System.out.println("Unable to decode Cipher :(");
+		  return;
+	  }
+	  
+	  
 		  
 	
 	  
@@ -75,6 +84,7 @@ public class Main {
 		ArrayList<String> returnArr = new ArrayList<String>();
 		for(String t : results){
 			if((results.indexOf(t) != results.lastIndexOf(t)) && (t.length() < 4 && t.length() > 0))
+				
 		        if(!returnArr.contains(t))
 		          returnArr.add(t);
 		}
@@ -106,8 +116,12 @@ public class Main {
 			shift++;
 		}
 		}
-		
+		if(shift == 61 && !(shiftWorks)){
+			return -1;
+		}
+		else{
 		return shift;
+		}
 		
 	}
 
